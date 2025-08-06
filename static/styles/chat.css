@@ -1,0 +1,137 @@
+@import url('https://fonts.googleapis.com/css2?family=Montserrat:wght@400;700&display=swap');
+
+body {
+    font-family: 'Montserrat', Arial, sans-serif;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    min-height: 100vh;
+    background-image: url('/static/images/fundo2.jpg');
+    background-size: cover;
+    background-repeat: no-repeat;
+    margin: 0;
+    padding: 0;
+}
+
+.chat-container {
+    width: 90%;
+    max-width: 550px;
+    height: 80vh;
+    background: rgb(255, 255, 255);
+    padding: 20px;
+    border-radius: 10px;
+    box-shadow: 0 0 10px #e5a4b4;
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+}
+
+.chat-box {
+    flex: 1;
+    overflow-y: auto;
+    overflow-x: hidden;
+    margin-bottom: 10px;
+    padding: 10px;
+    word-break: break-word;
+    white-space: normal;
+}
+
+.chat-box p {
+    word-break: break-word;
+    white-space: normal;
+    max-width: 100%;
+}
+
+.conteudo {
+    margin-bottom: 5px;
+    padding: 2px;
+    border-radius: 5px;
+    max-width: 100%;
+}
+
+.conteudo .me {
+    align-self: flex-end;
+    background-color: #e5a4b4;
+    color: #ffffff;
+    text-align: right;
+    border-radius: 20px 0px 20px 20px;
+    padding: 5px;
+    margin-left: auto;
+    max-width: 80%;
+}
+
+.conteudo .info-me {
+    align-self: flex-end;
+    font-size: 12px;
+    color: #000000;
+    text-align: right;
+    margin-right: 10px;
+    margin-right: auto;
+    margin-left: 370px;
+}
+
+.conteudo .other {
+    align-self: flex-start;
+    background-color: #f4d8a7;
+    color: #ffffff;
+    text-align: left;
+    border-radius: 0px 20px 20px 20px;
+    padding: 5px;
+    margin-right: auto;
+    max-width: 80%;
+}
+
+.conteudo .info-other {
+    align-self: flex-start;
+    font-size: 12px;
+    color: #000000;
+    text-align: left;
+    margin-right: auto;
+}
+
+.input-box {
+    display: flex;
+    gap: 10px;
+    margin-top: 10px;
+}
+
+input {
+    flex: 1;
+    padding: 10px;
+    border: 1px solid #ddd;
+    border-radius: 5px;
+    font-family: 'Montserrat', Arial, sans-serif;
+    font-size: 14px;
+}
+
+.bnt-chat {
+    padding: 10px;
+    width: 40px;
+    border: none;
+    background: #e5a4b4;
+    color: #ffffff;
+    border-radius: 100px;
+    cursor: pointer;
+}
+
+.header {
+    color: #e5a4b4;
+    text-align: center;
+    margin-bottom: 10px;
+}
+
+/* Responsividade extra para telas muito pequenas */
+@media (max-width: 400px) {
+    .chat-container {
+        padding: 10px;
+        height: 90vh;
+    }
+
+    .input-box {
+        flex-direction: column;
+    }
+
+    .bnt-chat {
+        width: 100%;
+    }
+}

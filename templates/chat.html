@@ -1,0 +1,86 @@
+<!DOCTYPE html>
+<html lang="pt-br">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Chat</title>
+    <link rel="stylesheet" href="/static/styles/chat.css">
+</head>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/socket.io/4.8.1/socket.io.js" integrity="sha512-8BHxHDLsOHx+flIrQ0DrZcea7MkHqRU5GbTHmbdzMRnAaoCIkZ97PqZcXJkKZckMMhqfoeaJE+DNUVuyoQsO3Q==" crossorigin="anonymous" referrerpolicy="no-referrer"></script>
+
+
+<script>
+    window.addEventListener('DOMContentLoaded', () => {
+        const chatBox = document.getElementById('chat-box');
+        if (chatBox) {
+            chatBox.scrollTop = chatBox.scrollHeight;
+        }
+    });
+</script>
+
+<body>
+    <div class="chat-container">
+        <div class="header">
+            <p>Olá <b>{{session['usuario'][1]}}</b>, seja bem vindo(a) ao chat!!</p>
+        </div>
+        <div class="chat-box" id="chat-box">
+            {% for mensagem in lista_mensagens %}
+                {% if mensagem[1] == session['usuario'][1] %}
+                    <div>
+                        <div class="conteudo">
+                            <p class="me">{{ mensagem[0] }}</p>
+                            <span class="info-me">você - {{ mensagem[2] }}</span>
+                        </div>
+                    </div>
+                {% else %}
+                    <div>
+                        <div class="conteudo">
+                            <p class="other">{{ mensagem[0] }}</p>
+                            <span class="info-other">{{ mensagem[1] }} - {{ mensagem[2] }}</span>
+                        </div>
+                    </div>
+                {% endif %}
+            {% endfor %}
+            
+        </div>
+        <form class="input-box" action="/enviar_mensagens" method="post">
+
+            <input type="text" name="mensagem" placeholder="Digite sua mensagem...">
+            <button id="sendButton" class="bnt-chat">></button>
+        </form>
+        
+    </div>
+
+    <script>
+        const socket = io();
+
+socket.on('atualizar_lista', function (novaMensagem) {
+    // Seleciona a div do chat
+    const chatBox = document.getElementById('chat-box');
+
+    if (!chatBox) return;
+
+    // Cria o novo parágrafo de mensagem
+    const novaMensagemElemento = document.createElement('p');
+    console.log(novaMensagem);
+
+    // Define o conteúdo da mensagem formatada
+    //novaMensagemElemento.textContent = `(${novaMensagem.datetime}) ${novaMensagem.sender} diz: ${novaMensagem.message}`;
+    novaMensagemElemento.innerHTML = `<div class="conteudo"><p class="other">${novaMensagem.message}</p><span class="info-other">${novaMensagem.sender} - ${novaMensagem.datetime}</span></div>`;
+
+
+    // Adiciona a nova mensagem na div do chat
+    chatBox.appendChild(novaMensagemElemento);
+
+    // Rola suavemente até o final
+    chatBox.scrollTo({
+        top: chatBox.scrollHeight,
+        behavior: 'smooth'
+    });
+});
+    </script>
+    <script src="/static/scripts/script.js"></script>
+</body>
+
+</html>
